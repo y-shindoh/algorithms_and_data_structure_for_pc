@@ -51,21 +51,20 @@ bubble_sort(TYPE* array,
 			size_t length)
 {
 	assert(array);
+	assert(length < ~(size_t)0);
 
-	size_t r(0);		// 交換回数
-	size_t h(length);	// 未ソート範囲
-	size_t k;
+	size_t r(0);			// 交換回数
+	size_t h(~(size_t)0);	// 未ソート範囲
+	size_t k(length);
 
-	while (1 < h) {
-		k = h;
-		for (size_t j(1); j < h; ++j) {
-			if (array[j-1] <= array[j]) continue;
-			k = j;
-			++r;
-			std::swap(array[j-1], array[j]);
-		}
-		if (h == k) break;
+	while (k < h) {
 		h = k;
+		for (size_t i(1); i < h; ++i) {
+			if (array[i-1] <= array[i]) continue;
+			std::swap(array[i-1], array[i]);
+			k = i;
+			++r;
+		}
 	}
 
 	return r;

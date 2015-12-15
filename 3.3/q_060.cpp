@@ -83,7 +83,7 @@ main()
 
 	size_t k = bubble_sort(array, N);
 
-	print_array<int>(array, N);
+	print_array(array, N);
 	std::printf("%lu\n", k);
 
 	return 0;

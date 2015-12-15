@@ -1,7 +1,7 @@
 /* -*- coding: utf-8; tab-width: 4 -*- */
 /**
  * @file	q_054.cpp
- * @brief	プロコンのためのアルゴリズムとデータ構造p.54の問題の回答
+ * @brief	プログラミングコンテストのためのアルゴリズムとデータ構造p.54の問題の回答
  * @author	Yasutaka SHINDOH / 新堂 安孝
  * @note	see http://www.amazon.co.jp/dp/4839952957 .
  */

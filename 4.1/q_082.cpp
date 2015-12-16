@@ -25,6 +25,24 @@
 #include <stack>
 
 /**
+ * スタックから2つの要素を取得
+ * @param[in,out]	stack	スタック
+ * @param[out]	left	トップから2番目の要素
+ * @param[out]	right	トップから1番目の要素
+ */
+template<typename TYPE>
+void
+pop_2elements(std::stack<TYPE>& stack,
+			  TYPE& left,
+			  TYPE& right)
+{
+	right = stack.top();
+	stack.pop();
+	left = stack.top();
+	stack.pop();
+}
+
+/**
  * 逆ポーランド記法のトークン列を処理して数値を算出
  * @param[in]	tokens	トークン列
  * @param[in]	length	配列 @a tokens の要素数
@@ -46,28 +64,19 @@ calculate(const char** tokens,
 		assert(tokens[i]);
 
 		if (std::strcmp(tokens[i], "+") == 0) {
-			r = stack.top();
-			stack.pop();
-			l = stack.top();
-			stack.pop();
+			pop_2elements(stack, l, r);
 			stack.push(l + r);
 			continue;
 		}
 
 		if (std::strcmp(tokens[i], "-") == 0) {
-			r = stack.top();
-			stack.pop();
-			l = stack.top();
-			stack.pop();
+			pop_2elements(stack, l, r);
 			stack.push(l - r);
 			continue;
 		}
 
 		if (std::strcmp(tokens[i], "*") == 0) {
-			r = stack.top();
-			stack.pop();
-			l = stack.top();
-			stack.pop();
+			pop_2elements(stack, l, r);
 			stack.push(l * r);
 			continue;
 		}

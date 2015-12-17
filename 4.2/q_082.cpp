@@ -36,6 +36,8 @@ pop_2elements(std::stack<TYPE>& stack,
 			  TYPE& left,
 			  TYPE& right)
 {
+	assert(2 <= stack.size());
+
 	right = stack.top();
 	stack.pop();
 	left = stack.top();
@@ -81,9 +83,12 @@ calculate(const char** tokens,
 			continue;
 		}
 
-		n = (TYPE)std::strtol(tokens[i], 0, 0);
+		n = (TYPE)std::strtod(tokens[i], 0);
+		//n = (TYPE)std::strtol(tokens[i], 0, 0);
 		stack.push(n);
 	}
+
+	assert(stack.size() == 1);
 
 	return stack.top();
 }

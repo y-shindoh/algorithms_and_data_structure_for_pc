@@ -44,7 +44,7 @@ calculate_water(const char* input,
 	std::stack<size_t> l_stack;				// 下りの文字列の位置
 	std::vector<LeftQuantity> lq_vector;	// 水たまりの左端と量
 	size_t l;
-	size_t t;
+	size_t q;
 
 	for (size_t i(0); input[i]; ++i) {
 		switch (input[i]) {
@@ -55,12 +55,12 @@ calculate_water(const char* input,
 			if (0 < l_stack.size()) {
 				l = l_stack.top();
 				l_stack.pop();
-				t = i - l;
+				q = i - l;
 				while (0 < lq_vector.size() && l < lq_vector.back().first) {
-					t += lq_vector.back().second;
+					q += lq_vector.back().second;
 					lq_vector.pop_back();
 				}
-				lq_vector.push_back(std::make_pair(l, t));
+				lq_vector.push_back(std::make_pair(l, q));
 			}
 			break;
 		}

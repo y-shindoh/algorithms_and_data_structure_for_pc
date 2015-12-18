@@ -16,6 +16,59 @@
 #include <cassert>
 #include <algorithm>
 
+namespace ys
+{
+	/**
+	 * std::lower_bound の代替
+	 */
+	template<typename TYPE>
+	const TYPE*
+	lower_bound(const TYPE* a,
+				const TYPE* b,
+				const TYPE& k)
+	{
+		assert(a);
+		assert(0 < b - a);
+
+		int s(0);			// k以下の末尾 or 配列 a の先頭
+		int e((int)(b-a));	// k超の先頭
+		int i;
+
+		while (s + 1 < e) {
+			i = (s + e) / 2;
+			if (a[i] <= k) s = i;
+			else e = i;
+		}
+
+		return a + s;
+	}
+
+	/**
+	 * st::upper_bound の代替
+	 */
+	template<typename TYPE>
+	const TYPE*
+	upper_bound(const TYPE* a,
+				const TYPE* b,
+				const TYPE& k)
+	{
+		assert(a);
+		assert(0 < b - a);
+
+		int s(0);			// k以下の末尾 or 配列 a の先頭
+		int e((int)(b-a));	// k超の先頭
+		int i;
+
+		while (s + 1 < e) {
+			i = (s + e) / 2;
+			if (a[i] <= k) s = i;
+			else e = i;
+		}
+
+		return a + e;
+	}
+};
+
 /**
  * 問題の回答
  * @param[in]	n	配列 @a S の要素数
@@ -35,9 +88,14 @@ count(size_t n,
 	assert(T);
 
 	size_t r(0);
+	const TYPE* it;
 
 	for (size_t i(0); i < q; ++i) {
-		r += std::upper_bound(S, S + n, T[i]) - std::lower_bound(S, S + n, T[i]);
+//		it = std::lower_bound(S, S + n, T[i]);
+		it = ys::lower_bound(S, S + n, T[i]);
+		if (*it != T[i]) continue;
+//		r += std::upper_bound(S, S + n, T[i]) - it;
+		r += ys::upper_bound(S, S + n, T[i]) - it;
 	}
 
 	return r;

@@ -37,7 +37,7 @@ count(size_t n,
 
 	for (size_t i(0); i < n; ++i) {
 		for (size_t j(0); j < q; ++j) {
-			if (S[i] == C[j]) ++r;
+			r += (size_t)(S[i] == C[j]);
 		}
 	}
 

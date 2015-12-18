@@ -28,7 +28,7 @@
 #include <vector>
 #include <utility>
 
-typedef	std::pair<size_t, size_t>	LeftRight;	// 範囲
+typedef	std::pair<size_t, size_t>	LeftQuantity;	// 左端と量
 
 /**
  * 問題の回答
@@ -41,11 +41,11 @@ calculate_water(const char* input,
 {
 	assert(input);
 
-	std::stack<size_t> l_stack;			// 下りの文字列の位置
-	std::vector<LeftRight> lr_vector;	// 水面の範囲
+	std::stack<size_t> l_stack;				// 下りの文字列の位置
+	std::vector<LeftQuantity> lq_vector;	// 水たまりの左端と量
 	size_t l;
+	size_t t;
 
-	// 個別の水たまりの範囲を算出
 	for (size_t i(0); input[i]; ++i) {
 		switch (input[i]) {
 		case 'd':
@@ -55,37 +55,21 @@ calculate_water(const char* input,
 			if (0 < l_stack.size()) {
 				l = l_stack.top();
 				l_stack.pop();
-				while (0 < lr_vector.size() && l < lr_vector.back().first) lr_vector.pop_back();
-				lr_vector.push_back(std::make_pair(l, i));
+				t = i - l;
+				while (0 < lq_vector.size() && l < lq_vector.back().first) {
+					t += lq_vector.back().second;
+					lq_vector.pop_back();
+				}
+				lq_vector.push_back(std::make_pair(l, t));
 			}
 			break;
 		}
 	}
 
-	while (0 < l_stack.size()) l_stack.pop();
 	output.clear();
 
-	size_t r(0);	// 個別の水たまりの水量
-	size_t j(0);
-
-	// 個別の水たまりの水量を算出
-	for (size_t i(0); input[i]; ++i) {
-		switch (input[i]) {
-		case 'd':
-			l_stack.push(i);
-			break;
-		case 'u':
-			if (0 < l_stack.size()) {
-				r += i - l_stack.top();
-				l_stack.pop();
-				if (i == lr_vector[j].second) {
-					output.push_back(r);
-					r = 0;
-					++j;
-				}
-			}
-			break;
-		}
+	for (auto i = lq_vector.begin(); i != lq_vector.end(); ++i) {
+		output.push_back(i->second);
 	}
 }
 

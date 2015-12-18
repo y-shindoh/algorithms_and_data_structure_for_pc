@@ -28,6 +28,7 @@ namespace ys
 				const TYPE& k)
 	{
 		assert(a);
+		assert(b);
 		assert(0 < b - a);
 
 		int s(0);			// k以下の末尾 or 配列 a の先頭
@@ -39,6 +40,8 @@ namespace ys
 			if (a[i] <= k) s = i;
 			else e = i;
 		}
+
+		if (a[s] != k) return b;
 
 		return a + s;
 	}
@@ -53,6 +56,7 @@ namespace ys
 				const TYPE& k)
 	{
 		assert(a);
+		assert(b);
 		assert(0 < b - a);
 
 		int s(0);			// k以下の末尾 or 配列 a の先頭
@@ -93,7 +97,7 @@ count(size_t n,
 	for (size_t i(0); i < q; ++i) {
 //		it = std::lower_bound(S, S + n, T[i]);
 		it = ys::lower_bound(S, S + n, T[i]);
-		if (*it != T[i]) continue;
+		if (it == S + n) continue;
 //		r += std::upper_bound(S, S + n, T[i]) - it;
 		r += ys::upper_bound(S, S + n, T[i]) - it;
 	}

@@ -22,10 +22,90 @@
   自力ではきれいな解き方ができなかった。
  */
 
+#include <cstdio>
+#include <cassert>
+#include <stack>
+#include <vector>
+#include <utility>
+
+typedef	std::pair<size_t, size_t>	LeftRight;	// 範囲
+
+/**
+ * 問題の回答
+ * @param[in]	input	上り・下り・水平を示す文字列
+ * @param[out]	output	個別の水たまりの水量
+ */
+void
+calculate_water(const char* input,
+				std::vector<size_t>& output)
+{
+	assert(input);
+
+	std::stack<size_t> l_stack;			// 下りの文字列の位置
+	std::vector<LeftRight> lr_vector;	// 水面の範囲
+	size_t l;
+
+	// 個別の水たまりの範囲を算出
+	for (size_t i(0); input[i]; ++i) {
+		switch (input[i]) {
+		case 'd':
+			l_stack.push(i);
+			break;
+		case 'u':
+			if (0 < l_stack.size()) {
+				l = l_stack.top();
+				l_stack.pop();
+				while (0 < lr_vector.size() && l < lr_vector.back().first) lr_vector.pop_back();
+				lr_vector.push_back(std::make_pair(l, i));
+			}
+			break;
+		}
+	}
+
+	while (0 < l_stack.size()) l_stack.pop();
+	output.clear();
+
+	size_t r(0);	// 個別の水たまりの水量
+	size_t j(0);
+
+	// 個別の水たまりの水量を算出
+	for (size_t i(0); input[i]; ++i) {
+		switch (input[i]) {
+		case 'd':
+			l_stack.push(i);
+			break;
+		case 'u':
+			if (0 < l_stack.size()) {
+				r += i - l_stack.top();
+				l_stack.pop();
+				if (i == lr_vector[j].second) {
+					output.push_back(r);
+					r = 0;
+					++j;
+				}
+			}
+			break;
+		}
+	}
+}
+
+/**
+ * サンプル・コマンド
+ */
 int
 main()
 {
+	const char input[] = "dduuud_ududdddu_udduuu_ddd_ddu_du_ud";
+	std::vector<size_t> output;
+	size_t r(0);
 
+	calculate_water(input, output);
+
+	for (auto i = output.begin(); i != output.end(); ++i) r += *i;
+	std::printf("%lu\n", r);
+	std::printf("%lu", output.size());
+	for (auto i = output.begin(); i != output.end(); ++i) std::printf(" %lu", *i);
+	std::printf("\n");
 
 	return 0;
 }

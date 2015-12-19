@@ -98,8 +98,8 @@ count(size_t n,
 //		it = std::lower_bound(S, S + n, T[i]);
 		it = ys::lower_bound(S, S + n, T[i]);
 		if (it == S + n) continue;
-//		r += std::upper_bound(S, S + n, T[i]) - it;
-		r += ys::upper_bound(S, S + n, T[i]) - it;
+//		r += std::distance(it, std::upper_bound(S, S + n, T[i]));
+		r += std::distance(it, ys::upper_bound(S, S + n, T[i]));
 	}
 
 	return r;

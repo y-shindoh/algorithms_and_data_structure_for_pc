@@ -20,6 +20,11 @@
   最大積載量Pの最小値を求めるプログラムを作成してください。
  */
 
+/*
+  メモ:
+  書籍では、トラックの台数ではなく、積んだ荷物の数で二分探索をしている。
+ */
+
 #include <cstdio>
 #include <cassert>
 
@@ -73,6 +78,7 @@ calculate_weight(const TYPE* w,
 	assert(k <= n);
 	assert(0 < k);
 
+	// 最大積載量の候補
 	size_t s(0);		// k超の末尾
 	size_t e(n*10000);	// k以下の先頭
 	size_t p;

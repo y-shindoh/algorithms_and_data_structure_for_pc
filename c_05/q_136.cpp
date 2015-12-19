@@ -69,7 +69,7 @@ count_trucks(const TYPE* w,
  * @note	計算量は O(n log n)。
  */
 template<typename TYPE>
-size_t
+TYPE
 calculate_weight(const TYPE* w,
 				 size_t n,
 				 size_t k)
@@ -79,9 +79,9 @@ calculate_weight(const TYPE* w,
 	assert(0 < k);
 
 	// 最大積載量の候補
-	size_t s(0);		// k超の末尾
-	size_t e(n*10000);	// k以下の先頭
-	size_t p;
+	TYPE s(0);			// k超の末尾
+	TYPE e(n*10000);	// k以下の先頭
+	TYPE p;
 
 	while (s + 1 < e) {
 		p = (s + e) / 2;

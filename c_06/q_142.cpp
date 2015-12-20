@@ -26,7 +26,7 @@
  * @param[in]	A	配列
  * @param[in]	n	配列 @a A の要素数
  * @param[in]	m	数値
- * @return	true: 配列の適切な要素の和が @a m と等しい, false: 全ての要素の我が等しくない
+ * @return	true: 配列の適切な要素の和が @a m と等しい, false: 全ての要素の和が等しくない
  * @note	最悪計算量は O(2^n)。
  */
 template<typename TYPE>
@@ -51,7 +51,7 @@ find_sum_1(const TYPE* A,
  * @param[in]	n	配列 @a A の要素数
  * @param[in]	m	数値
  * @param	dp	DPテーブル
- * @return	true: 配列の適切な要素の和が @a m と等しい, false: 全ての要素の我が等しくない
+ * @return	true: 配列の適切な要素の和が @a m と等しい, false: 全ての要素の和が等しくない
  * @note	最悪計算量は O(mn)。
  */
 template<typename TYPE>

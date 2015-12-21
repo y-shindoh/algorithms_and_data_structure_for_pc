@@ -32,7 +32,7 @@
  */
 template<typename TYPE>
 size_t
-paritioan(TYPE* A,
+partition(TYPE* A,
 		  size_t p,
 		  size_t r)
 {
@@ -61,7 +61,7 @@ main()
 {
 	int A[N] = {13, 19, 9, 5, 12, 8, 7, 4, 21, 2, 6, 11};
 
-	size_t j = paritioan(A, 0, N-1);
+	size_t j = partition(A, 0, N-1);
 
 	for (size_t i(0); i < N; ++i) {
 		if (i == j) {

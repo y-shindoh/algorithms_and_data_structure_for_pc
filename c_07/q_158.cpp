@@ -39,8 +39,6 @@ paritioan(TYPE* A,
 	assert(A);
 	assert(p <= r);
 
-	if (p == r) return p;
-
 	size_t q(p);
 
 	for (size_t i(p); i < r; ++i) {

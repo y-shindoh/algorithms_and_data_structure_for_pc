@@ -33,7 +33,7 @@
  */
 template<typename TYPE>
 void
-counting_sort(TYPE* input,
+counting_sort(const TYPE* input,
 			  TYPE* output,
 			  size_t n,
 			  size_t* buffer,
@@ -76,8 +76,12 @@ main()
 	size_t buffer[K+2];
 
 	counting_sort(input, output, N, buffer, K+2);
+#ifndef	_NDEBUG
+	std::sort(input, input + N);	// 比較用
+#endif	// !_NDEBUG
 
 	for (int i(0); i < N; ++i) {
+		assert(input[i] == output[i]);
 		std::printf("%u ", output[i]);
 	}
 	std::printf("\n");

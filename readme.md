@@ -11,7 +11,7 @@
   * OS X Yosemite
   * clang++
 * 以下の問題は後回しにしている。
-  * 特記事項なし
+  * p.179 (minimum cost sort)
 
 ## 参考URI
 

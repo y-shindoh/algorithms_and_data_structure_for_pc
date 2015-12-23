@@ -18,6 +18,7 @@
 #include <cstdio>
 #include <cstring>
 #include <cassert>
+#include <algorithm>
 
 /**
  * マージソート
@@ -70,17 +71,14 @@ main()
 {
 	int a[N] = {8, 5, 9, 2, 6, 3, 7, 1, 10, 4};
 	int b[N];
+	auto f = [](int x){ std::printf("%d ", x); };
 
-	for (int i(0); i < N; ++i) {
-		std::printf("%d ", a[i]);
-	}
+	std::for_each(a, a + N, f);
 	std::printf("\n");
 
 	merge_sort(a, b, N);
 
-	for (int i(0); i < N; ++i) {
-		std::printf("%d ", a[i]);
-	}
+	std::for_each(a, a + N, f);
 	std::printf("\n");
 
 	return 0;

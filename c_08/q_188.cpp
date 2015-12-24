@@ -24,9 +24,7 @@
 /*
   メモ:
   出力の制限「節点の情報はその番号が小さい順に出力してください」から
-  全ノードを外部の std::vector に格納する形で構築したが、
-  書籍に未記述の条件が入力にあるようで、
-  書籍では通常の in-order の traverse で対処している。
+  全ノードを外部の std::vector に格納する形で構築した。
  */
 
 #include <cstdio>
@@ -131,6 +129,9 @@ public:
 			 size_t depth = 0)
 		{
 			if (index == INVALID_ID_) return;
+
+			assert(index < nodes.size());
+			assert(nodes[index]);
 
 			nodes[index]->depth_ = depth;
 			for (size_t i(0); i < nodes[index]->children_.size(); ++i) {

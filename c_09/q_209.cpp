@@ -14,6 +14,11 @@
   Tの正しい位置に挿入します。
  */
 
+/*
+  メモ:
+  効率の都合から、メソッド insert の実装を書籍とは違うものとした。
+ */
+
 #include <cstdio>
 #include <cassert>
 
@@ -60,11 +65,10 @@ insert(Node<TYPE>* tree,
 		size_t i = (size_t)(node->d_ >= n->d_);
 		if (n->c_[i]) {
 			n = n->c_[i];
+			continue;
 		}
-		else {
-			n->c_[i] = node;
-			return tree;
-		}
+		n->c_[i] = node;
+		return tree;
 	}
 }
 

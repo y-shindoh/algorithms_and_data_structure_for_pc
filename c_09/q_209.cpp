@@ -12,6 +12,13 @@
   以下の擬似コードに示す (省略) insert を実行します。
   insert は、キーがv、左の子がNIL、右の子がNILであるような点zを受け取り、
   Tの正しい位置に挿入します。
+
+  二分探索木Tに対し、以下の命令を実行するプログラムを作成してください。
+
+  - insert k: Tにキーkを挿入する
+  - print: キーを木の中間順巡回と先行順巡回アルゴリズムで出力する。
+
+  挿入は上記擬似コード (省略) のアルゴリズムに従ってください。
  */
 
 /*
@@ -83,7 +90,7 @@ Node<TYPE>*
 insert(Node<TYPE>* tree,
 	   const TYPE& key)
 {
-	return insert(tree, new Node<TYPE>(key));
+	return insert<TYPE>(tree, new Node<TYPE>(key));
 }
 
 /**
@@ -117,6 +124,21 @@ print_inorder(const Node<TYPE>* node)
 }
 
 /**
+ * 二分探索木の各値を表示
+ * @param[in]	node	二分探索木
+ */
+template<typename TYPE>
+void
+print(const Node<TYPE>* node)
+{
+	print_inorder<TYPE>(node);
+	std::printf("\n");
+
+	print_preorder<TYPE>(node);
+	std::printf("\n");
+}
+
+/**
  * 二分探索木の全てのノードを削除
  * @param[in,out]	node	二分探索木
  */
@@ -126,8 +148,8 @@ all_delete(Node<TYPE>* node)
 {
 	if (!node) return;
 
-	all_delete(node->c_[0]);
-	all_delete(node->c_[1]);
+	all_delete<TYPE>(node->c_[0]);
+	all_delete<TYPE>(node->c_[1]);
 	delete node;
 }
 
@@ -146,11 +168,7 @@ main()
 		tree = insert(tree, a[i]);
 	}
 
-	print_inorder(tree);
-	std::printf("\n");
-
-	print_preorder(tree);
-	std::printf("\n");
+	print(tree);
 
 	all_delete(tree);
 

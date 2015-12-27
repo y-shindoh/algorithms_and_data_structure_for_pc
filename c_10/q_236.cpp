@@ -19,42 +19,36 @@
   ボトムアップに maxHeapify を適用することで配列Aをmax-ヒープに変換します。
  */
 
-/*
-  メモ:
-  書籍では要素を下降させる方法を取ったが、
-  ここでは逆に上昇させる方法で対処する。
- */
-
 #include <cstdio>
 #include <cassert>
 #include <algorithm>
 
 /**
- * 指定位置の要素をmax-ヒープの性質に合うように上昇
+ * 指定位置の要素をmax-ヒープの性質に合うように下降
  * @param[in,out]	heap	max-ヒープ
  * @param[in]	i	処理対象の要素の位置
  * @param[in]	n	配列 @a heap の要素数
  */
 template<typename TYPE>
 void
-upheapify(TYPE* heap,
-		  size_t i,
-		  size_t n)
+downheapify(TYPE* heap,
+			size_t i,
+			size_t n)
 {
 	assert(heap);
 	assert(0 < n);
 	assert(i < n);
 
-	size_t p, j;
+	size_t j, k;
 
-	while (0 < i) {
-		p = (i - 1) / 2;	// 親
-		i = p * 2 + 1;		// 左の子
-		j = p * 2 + 2;		// 右の子
-		if (j < n && heap[i] < heap[j]) std::swap(i, j);
-		if (heap[i] <= heap[p]) break;
-		std::swap(heap[i], heap[p]);
-		i = p;
+	while ('-') {
+		j = i * 2 + 1;		// 左の子
+		k = i * 2 + 2;		// 右の子
+		if (n <= j) break;
+		if (k < n && heap[j] < heap[k]) std::swap(j, k);
+		if (heap[j] <= heap[i]) break;
+		std::swap(heap[i], heap[j]);
+		i = j;
 	}
 }
 
@@ -70,8 +64,8 @@ build_heap(TYPE* heap,
 {
 	assert(heap);
 
-	for (size_t i(1); i < n; ++i) {
-		upheapify(heap, i, i + 1);
+	for (size_t i(n/2); 0 < i; --i) {
+		downheapify<TYPE>(heap, i - 1, n);
 	}
 }
 

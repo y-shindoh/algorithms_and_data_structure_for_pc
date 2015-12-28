@@ -55,7 +55,7 @@ solver(const size_t* h,
 		size_t v(~(size_t)0);
 
 		for (size_t i(s+1); i < e; ++i) {
-			v = std::min(v, solver(h, w, t, s, i) + solver(h, w, t, i, e) + h[s] * w[i-1] * w[e-1]);
+			v = std::min(v, solver(h, w, t, s, i) + solver(h, w, t, i, e) + h[s] * h[i] * w[e-1]);
 		}
 
 		t[s][e-1] = v;
@@ -79,7 +79,7 @@ main()
 	for (int i(0); i < N; ++i) {
 		t[i] = new size_t[N];
 		std::fill(t[i], t[i] + N, ~(size_t)0);
-		t[i][i] = 0;	// 計算前の行列
+		t[i][i] = 0;	// 最初からある行列
 	}
 
 	std::printf("%lu\n", solver(h, w, t, 0, N));

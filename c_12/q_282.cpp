@@ -15,6 +15,11 @@
   頂点1からたどり着けない頂点については、距離として-1を出力してください。
  */
 
+/*
+  メモ:
+  書籍では1オリジンだが、ここでは0オリジンとしている。
+ */
+
 #include <cstdio>
 #include <set>
 #include <vector>
@@ -24,6 +29,7 @@
  * 問題の回答
  * @param[in]	edges	隣接リスト
  * @param[in,out]	d	各頂点の距離
+ * @param[in]	i	探索を開始する頂点
  */
 void
 bfs(const std::vector< std::set<size_t> >& edges,

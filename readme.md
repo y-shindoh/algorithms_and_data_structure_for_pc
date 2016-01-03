@@ -12,6 +12,7 @@
   * clang++
 * 以下の問題は後回しにしている。
   * p.179 (minimum cost sort)
+  * p.324 (range search, 書籍と全く違う実装方法で解いた)
 
 ## 参考URI
 

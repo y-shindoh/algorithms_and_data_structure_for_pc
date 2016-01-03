@@ -19,6 +19,7 @@
 /*
   メモ:
   書籍ではkD木を使って解いているが、ここではより簡単な方法で解いた。
+  このため、最悪計算量が大きくなってしまっている。
  */
 
 #include <cstdio>
@@ -46,30 +47,35 @@ main()
 							 {4, 10, 2, 5}};
 
 	std::multimap<int, size_t> map[2];
-	int f[M];
+	std::map<size_t, size_t> count;
 
+	// O(M log M) の計算量
 	for (size_t i(0); i < (size_t)M; ++i) {
 		for (size_t j(0); j < 2; ++j) {
 			map[j].insert(std::make_pair(points[i][j], i));
 		}
 	}
 
+	// O(NM) の最悪計算量
 	for (int i(0); i < N; ++i) {
-		std::fill(f, f + M, 0);
-
+		// O(M) の最悪計算量
 		for (int j(0); j < 2; ++j) {
 			auto it = map[j].lower_bound(query[i][j*2]);
 			while (it != map[j].end() && it->first <= query[i][j*2+1]) {
-				f[it->second]++;
+				if (count.find(it->second) == count.end()) count[it->second] = 0;
+				count[it->second]++;
 				++it;
 			}
 		}
 
-		for (int i(0); i < M; ++i) {
-			if (f[i] < 2) continue;
-			std::printf("%d\n", i);
+		// O(M) の最悪計算量
+		for (auto it = count.begin(); it != count.end(); ++it) {
+			if (it->second < 2) continue;
+			std::printf("%lu\n", it->first);
 		}
 		std::printf("\n");
+
+		count.clear();
 	}
 
 	return 0;

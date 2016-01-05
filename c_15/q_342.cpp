@@ -22,6 +22,11 @@
   トポロジカルソートを行った頂点の並びを出力してください。
  */
 
+/*
+  メモ:
+  幅優先探索の使い方が書籍と違うので、出力が一致しない。
+ */
+
 #include <cstdio>
 #include <cassert>
 #include <vector>
@@ -29,7 +34,7 @@
 
 /**
  * トポロジカル・ソート
- * @param[in]	graph	隣接リスト (to → from の形式)
+ * @param[in]	graph	隣接リスト ([to][*] => from の形式)
  * @param[out]	out	ソート結果
  */
 void

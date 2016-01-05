@@ -48,8 +48,8 @@ calculate(const std::vector< std::vector<CV> >& edges,
 		size_t i = std::get<1>(cv);
 		if (costs[i] != ~(size_t)0) continue;
 		costs[i] = std::get<0>(cv);
-		for (auto it = edges[i].begin(); it != edges[i].end(); ++it) {
-			queue.push(CV(costs[i] + std::get<0>(*it), std::get<1>(*it)));
+		for (CV e : edges[i]) {
+			queue.push(CV(costs[i] + std::get<0>(e), std::get<1>(e)));
 		}
 	}
 }

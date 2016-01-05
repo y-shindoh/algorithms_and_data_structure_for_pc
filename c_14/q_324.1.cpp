@@ -57,11 +57,11 @@ main()
 	}
 
 	// O(NM) の最悪計算量
-	for (int i(0); i < N; ++i) {
+	for (auto q : query) {
 		// O(M) の最悪計算量
-		for (int j(0); j < 2; ++j) {
-			auto it = map[j].lower_bound(query[i][j*2]);
-			while (it != map[j].end() && it->first <= query[i][j*2+1]) {
+		for (int i(0); i < 2; ++i) {
+			auto it = map[i].lower_bound(q[i*2]);
+			while (it != map[i].end() && it->first <= q[i*2+1]) {
 				if (count.find(it->second) == count.end()) count[it->second] = 0;
 				count[it->second]++;
 				++it;
@@ -69,9 +69,9 @@ main()
 		}
 
 		// O(M) の最悪計算量
-		for (auto it = count.begin(); it != count.end(); ++it) {
-			if (it->second < 2) continue;
-			std::printf("%lu\n", it->first);
+		for (auto c : count) {
+			if (c.second < 2) continue;
+			std::printf("%lu\n", c.first);
 		}
 		std::printf("\n");
 

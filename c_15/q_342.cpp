@@ -94,9 +94,7 @@ main()
 
 	topological_sort(rgraph, out);
 
-	for (auto it = out.begin(); it != out.end(); ++it) {
-		std::printf("%lu\n", *it);
-	}
+	for (size_t v : out) std::printf("%lu\n", v);
 
 	return 0;
 }

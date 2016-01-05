@@ -101,11 +101,11 @@ main()
 	search<M>(table);
 
 	if (check<M>(table)) {
-		for (int i(0); i < M; ++i) {
-			for (int j(0); j < M; ++j) {
-				if (0 < j) std::printf(" ");
-				if (table[i][j] != INT_MAX) {
-					std::printf("%d", table[i][j]);
+		for (auto t : table) {
+			for (int i(0); i < M; ++i) {
+				if (0 < i) std::printf(" ");
+				if (t[i] != INT_MAX) {
+					std::printf("%d", t[i]);
 				}
 				else {
 					std::printf("INF");

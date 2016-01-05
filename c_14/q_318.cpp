@@ -124,13 +124,13 @@ main()
 										{1, 3, 0}};
 	UnionFindTree<unsigned int> uft(N);
 
-	for (int i(0); i < N; ++i) {
-		switch (command[i][0]) {
+	for (auto c : command) {
+		switch (c[0]) {
 		case 0:
-			uft.unite(command[i][1], command[i][2]);
+			uft.unite(c[1], c[2]);
 			break;
 		case 1:
-			std::printf("%d\n", (int)uft.same(command[i][1], command[i][2]));
+			std::printf("%d\n", (int)uft.same(c[1], c[2]));
 			break;
 		default:
 			assert(false);

@@ -22,11 +22,6 @@
   トポロジカルソートを行った頂点の並びを出力してください。
  */
 
-/*
-  メモ:
-  幅優先探索の使い方が書籍と違うので、出力が一致しない。
- */
-
 #include <cstdio>
 #include <cassert>
 #include <vector>
@@ -34,12 +29,12 @@
 
 /**
  * トポロジカル・ソート
- * @param[in]	graph	隣接リスト ([to][*] => from の形式)
+ * @param[in]	graph	隣接リスト
  * @param[out]	out	ソート結果
  */
 void
 topological_sort(const std::vector< std::vector<size_t> >& graph,
-				 std::deque<size_t>& out)
+				 std::vector<size_t>& out)
 {
 	std::vector<size_t> counts(graph.size(), 0);
 
@@ -51,7 +46,7 @@ topological_sort(const std::vector< std::vector<size_t> >& graph,
 
 	for (size_t i(0); i < graph.size(); ++i) {
 		if (0 < counts[i]) continue;
-		out.push_front(i);
+		out.push_back(i);
 		queue.push(i);
 	}
 
@@ -60,7 +55,7 @@ topological_sort(const std::vector< std::vector<size_t> >& graph,
 		queue.pop();
 		for (size_t j : graph[i]) {
 			if (0 < --counts[j]) continue;
-			out.push_front(j);
+			out.push_back(j);
 			queue.push(j);
 		}
 	}
@@ -83,16 +78,16 @@ main()
 								{3, 4},
 								{4, 5},
 								{5, 2}};
-	std::vector< std::vector<size_t> > rgraph(M);
-	std::deque<size_t> out;
+	std::vector< std::vector<size_t> > g(M);
+	std::vector<size_t> out;
 
 	for (int i(0); i < N; ++i) {
 		assert(graph[i][0] < M);
 		assert(graph[i][1] < M);
-		rgraph[graph[i][1]].push_back(graph[i][0]);
+		g[graph[i][0]].push_back(graph[i][1]);
 	}
 
-	topological_sort(rgraph, out);
+	topological_sort(g, out);
 
 	for (size_t v : out) std::printf("%lu\n", v);
 

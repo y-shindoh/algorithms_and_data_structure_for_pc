@@ -49,7 +49,7 @@ search(const std::vector< std::map<size_t, size_t> >& graph,
 		if (done.find(e.first) != done.end()) continue;
 		done.insert(e.first);
 		t = search(graph, done, width, depth + e.second, e.first) + e.second;
-		if (t <= queue[0] < t) continue;
+		if (t <= queue[0]) continue;
 		queue[0] = t;
 		if (queue[1] < t) std::swap(queue[0], queue[1]);
 	}

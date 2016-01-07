@@ -71,10 +71,10 @@ search(const std::vector< std::map<size_t, size_t> >& graph,
  * 無向グラフの隣接リスト作成の補助関数
  */
 void
-add_graph(std::vector< std::map<size_t, size_t> >& graph,
-		  size_t i,
-		  size_t j,
-		  size_t w)
+add_edge(std::vector< std::map<size_t, size_t> >& graph,
+		 size_t i,
+		 size_t j,
+		 size_t w)
 {
 	graph[i].insert(std::make_pair(j, w));
 	graph[j].insert(std::make_pair(i, w));
@@ -90,13 +90,13 @@ main()
 	std::unordered_set<size_t> done;
 	size_t w(0);
 
-	add_graph(graph, 0, 1, 2);
-	add_graph(graph, 1, 2, 1);
-	add_graph(graph, 1, 3, 3);
+	add_edge(graph, 0, 1, 2);
+	add_edge(graph, 1, 2, 1);
+	add_edge(graph, 1, 3, 3);
 
-//	add_graph(graph, 0, 1, 1);
-//	add_graph(graph, 1, 2, 2);
-//	add_graph(graph, 2, 3, 4);
+//	add_edge(graph, 0, 1, 1);
+//	add_edge(graph, 1, 2, 2);
+//	add_edge(graph, 2, 3, 4);
 
 	search(graph, done, w);
 

@@ -102,9 +102,9 @@ search(const std::vector< std::set<TYPE> >& graph,
  * 無向グラフの隣接リスト作成の補助関数
  */
 void
-add_graph(std::vector< std::set<size_t> >& graph,
-		  size_t i,
-		  size_t j)
+add_edge(std::vector< std::set<size_t> >& graph,
+		 size_t i,
+		 size_t j)
 {
 	graph[i].insert(j);
 	graph[j].insert(i);
@@ -119,21 +119,21 @@ main()
 	std::vector< std::set<size_t> > graph(N);
 	std::set<size_t> result;
 
-	add_graph(graph, 0, 1);
-	add_graph(graph, 0, 2);
-	add_graph(graph, 1, 2);
-	add_graph(graph, 2, 3);
+	add_edge(graph, 0, 1);
+	add_edge(graph, 0, 2);
+	add_edge(graph, 1, 2);
+	add_edge(graph, 2, 3);
 
-//	add_graph(graph, 0, 1);
-//	add_graph(graph, 0, 2);
-//	add_graph(graph, 0, 3);
-//	add_graph(graph, 1, 2);
-//	add_graph(graph, 2, 3);
-//	add_graph(graph, 3, 4);
-//	add_graph(graph, 3, 5);
-//	add_graph(graph, 5, 6);
-//	add_graph(graph, 5, 7);
-//	add_graph(graph, 6, 7);
+//	add_edge(graph, 0, 1);
+//	add_edge(graph, 0, 2);
+//	add_edge(graph, 0, 3);
+//	add_edge(graph, 1, 2);
+//	add_edge(graph, 2, 3);
+//	add_edge(graph, 3, 4);
+//	add_edge(graph, 3, 5);
+//	add_edge(graph, 5, 6);
+//	add_edge(graph, 5, 7);
+//	add_edge(graph, 6, 7);
 
 	search(graph, result);
 

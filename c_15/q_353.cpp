@@ -42,21 +42,21 @@ search(const std::vector< std::map<size_t, size_t> >& graph,
 {
 	assert(index < graph.size());
 
-	size_t queue[2] = {0, depth};
-	size_t t;
+	size_t queue[3] = {0, 0, depth};
 
 	for (auto e : graph[index]) {
 		if (done.find(e.first) != done.end()) continue;
 		done.insert(e.first);
-		t = search(graph, done, width, depth + e.second, e.first) + e.second;
-		if (t <= queue[0]) continue;
-		queue[0] = t;
-		if (queue[1] < t) std::swap(queue[0], queue[1]);
+		queue[0] = search(graph, done, width, depth + e.second, e.first) + e.second;
+		for (size_t i(1); i < 3; ++i) {
+			if (queue[i-1] <= queue[i]) break;
+			std::swap(queue[i-1], queue[i]);
+		}
 	}
 
-	width = std::max(width, queue[0] + queue[1]);
+	width = std::max(width, queue[1] + queue[2]);
 
-	return depth != queue[1] ? queue[1] : queue[0];
+	return depth != queue[2] ? queue[2] : queue[1];
 }
 
 #define	N	4

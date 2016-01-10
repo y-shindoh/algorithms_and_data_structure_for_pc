@@ -54,9 +54,9 @@ calculate(const size_t* coins,
 int
 main()
 {
-	size_t coint[M] = {1, 2, 7, 8, 12, 50};
+	const size_t coins[M] = {1, 2, 7, 8, 12, 50};
 
-	std::printf("%lu\n", calculate(coint, M, N));
+	std::printf("%lu\n", calculate(coins, M, N));
 
 	return 0;
 }

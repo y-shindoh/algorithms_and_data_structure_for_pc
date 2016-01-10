@@ -15,6 +15,7 @@
  */
 
 #include <cstdio>
+#include <cassert>
 #include <vector>
 #include <algorithm>
 
@@ -72,6 +73,9 @@ main()
 													 {1, 0, 0, 0, 0},
 													 {0, 0, 0, 0, 1},
 													 {0, 0, 0, 1, 0}}};
+
+	assert(table.size() == H);
+	assert(table[0].size() == W);
 
 	std::printf("%lu\n", search(table));
 

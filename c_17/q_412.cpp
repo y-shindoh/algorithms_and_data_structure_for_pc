@@ -14,6 +14,7 @@
  */
 
 #include <cstdio>
+#include <cassert>
 #include <vector>
 
 /**
@@ -50,6 +51,8 @@ int
 main()
 {
 	const std::vector<size_t> coins = {{1, 2, 7, 8, 12, 50}};
+
+	assert(coins.size() == M);
 
 	std::printf("%lu\n", calculate(coins, N));
 

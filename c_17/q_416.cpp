@@ -16,12 +16,13 @@
 
 #include <cstdio>
 #include <cassert>
+#include <array>
 #include <vector>
 #include <utility>
 #include <algorithm>
 
 /// 重さと価値
-typedef	std::pair<size_t, size_t>	VW;
+typedef	std::array<size_t, 2>	VW;
 
 /**
  * ナップサック問題のソルバ
@@ -45,11 +46,11 @@ calculate(const VW* vw,
 		for (size_t j(0); j < weight; ++j) {
 			size_t k = weight - j - 1;
 			if (work[k] == ~(size_t)0) continue;
-			if (weight < k + vw[i].second) continue;
-			if (work[k+vw[i].second] != ~(size_t)0
-				&& work[k] + vw[i].first <= work[k+vw[i].second]) continue;
-			work[k+vw[i].second] = work[k] + vw[i].first;
-			max = std::max(max, work[k+vw[i].second]);
+			if (weight < k + vw[i][1]) continue;
+			if (work[k+vw[i][1]] != ~(size_t)0
+				&& work[k] + vw[i][0] <= work[k+vw[i][1]]) continue;
+			work[k+vw[i][1]] = work[k] + vw[i][0];
+			max = std::max(max, work[k+vw[i][1]]);
 		}
 	}
 
@@ -72,7 +73,7 @@ main()
 	std::vector<VW> input;
 
 	for (size_t i(0); i < N; ++i) {
-		input.push_back(VW(vw[i][0], vw[i][1]));
+		input.push_back(VW{{vw[i][0], vw[i][1]}});
 	}
 
 	std::printf("%lu\n", calculate(&input[0], input.size(), W));

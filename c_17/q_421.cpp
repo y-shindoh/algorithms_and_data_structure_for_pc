@@ -16,6 +16,7 @@
  */
 
 #include <cstdio>
+#include <array>
 #include <vector>
 #include <algorithm>
 
@@ -50,9 +51,9 @@ search(const TYPE* array,
 int
 main()
 {
-	size_t array[N] = {5, 1, 3, 2, 4};
+	std::array<size_t, N> array = {{5, 1, 3, 2, 4}};
 
-	std::printf("%lu\n", search(array, N));
+	std::printf("%lu\n", search(&array[0], N));
 
 	return 0;
 }

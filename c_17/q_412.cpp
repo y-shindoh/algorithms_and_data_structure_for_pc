@@ -14,31 +14,26 @@
  */
 
 #include <cstdio>
-#include <cassert>
 #include <vector>
 
 /**
  * コインの枚数を算出
  * @param[in]	coins	コインの種類
- * @param[in]	length	コインの種類の総数
  * @param[in]	total	求める総額
  * @return	コインの枚数
  */
 size_t
-calculate(const size_t* coins,
-		  size_t length,
+calculate(const std::vector<size_t>& coins,
 		  size_t total)
 {
-	assert(coins);
-
 	std::vector<size_t> work(total + 1, ~(size_t)0);
 	work[0] = 0;
 
-	for (size_t i(0); i < length; ++i) {
-		for (size_t j(0); j < total; ++j) {
-			if (work[j] == ~(size_t)0) continue;
-			if (total < j + coins[i]) continue;
-			work[j+coins[i]] = std::min(work[j+coins[i]], work[j] + 1);
+	for (size_t c : coins) {
+		for (size_t i(0); i < total; ++i) {
+			if (work[i] == ~(size_t)0) continue;
+			if (total < i + c) continue;
+			work[i+c] = std::min(work[i+c], work[i] + 1);
 		}
 	}
 
@@ -54,9 +49,9 @@ calculate(const size_t* coins,
 int
 main()
 {
-	const size_t coins[M] = {1, 2, 7, 8, 12, 50};
+	const std::vector<size_t> coins = {{1, 2, 7, 8, 12, 50}};
 
-	std::printf("%lu\n", calculate(coins, M, N));
+	std::printf("%lu\n", calculate(coins, N));
 
 	return 0;
 }

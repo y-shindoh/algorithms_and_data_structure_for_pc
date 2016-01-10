@@ -27,30 +27,26 @@ typedef	std::array<size_t, 2>	VW;
 /**
  * ナップサック問題のソルバ
  * @param[in]	vw	品物の重さ・価値
- * @param[in]	length	品物の種類
  * @param[in]	weight	許容する重さの合計
  * @return	最大の価値の合計
  */
 size_t
-calculate(const VW* vw,
-		  size_t length,
+calculate(const std::vector<VW>& vw,
 		  size_t weight)
 {
-	assert(vw);
-
 	size_t max(0);
 	std::vector<size_t> work(weight + 1, ~(size_t)0);
 	work[0] = 0;
 
-	for (size_t i(0); i < length; ++i) {
-		for (size_t j(0); j < weight; ++j) {
-			size_t k = weight - j - 1;
-			if (work[k] == ~(size_t)0) continue;
-			if (weight < k + vw[i][1]) continue;
-			if (work[k+vw[i][1]] != ~(size_t)0
-				&& work[k] + vw[i][0] <= work[k+vw[i][1]]) continue;
-			work[k+vw[i][1]] = work[k] + vw[i][0];
-			max = std::max(max, work[k+vw[i][1]]);
+	for (auto t : vw) {
+		for (size_t i(0); i < weight; ++i) {
+			size_t j = weight - i - 1;
+			if (work[j] == ~(size_t)0) continue;
+			if (weight < j + t[1]) continue;
+			if (work[j+t[1]] != ~(size_t)0
+				&& work[j] + t[0] <= work[j+t[1]]) continue;
+			work[j+t[1]] = work[j] + t[0];
+			max = std::max(max, work[j+t[1]]);
 		}
 	}
 
@@ -66,17 +62,14 @@ calculate(const VW* vw,
 int
 main()
 {
-	const size_t vw[N][2] = {{4, 2},
-							 {5, 2},
-							 {2, 1},
-							 {8, 3}};
-	std::vector<VW> input;
+	std::vector<VW> vw = {{{{4, 2}},
+						   {{5, 2}},
+						   {{2, 1}},
+						   {{8, 3}}}};
 
-	for (size_t i(0); i < N; ++i) {
-		input.push_back(VW{{vw[i][0], vw[i][1]}});
-	}
+	assert(vw.size() == N);
 
-	std::printf("%lu\n", calculate(&input[0], input.size(), W));
+	std::printf("%lu\n", calculate(vw, W));
 
 	return 0;
 }

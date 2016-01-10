@@ -35,11 +35,10 @@ search(const std::vector< std::vector<bool> >& board)
 		work[0].resize(board[0].size());
 		work[1].resize(board[0].size(), 0);
 
-		size_t i(1);
+		size_t i(0);
 		size_t j;
 
 		for (auto b : board) {
-			i = 1 - i;
 			j = 1 - i;
 			for (size_t k(0); k < b.size(); ++k) {
 				if (b[k]) {
@@ -54,6 +53,7 @@ search(const std::vector< std::vector<bool> >& board)
 					r = std::max(r, work[i][k]);
 				}
 			}
+			i = 1 - i;
 		}
 	}
 

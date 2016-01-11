@@ -42,23 +42,27 @@ search(const std::vector< std::vector<bool> >& board)
 		for (size_t k(0); k < b.size(); ++k) {
 			if (b[k]) {
 				work[i][k] = 0;
-				stack.clear();
+				while (0 < stack.size()) {
+					r = std::max(r, (k - stack.back()[1]) * stack.back()[0]);
+					stack.pop_back();
+				}
 			}
 			else {
 				work[i][k] = work[j][k] + 1;
 				size_t t(k);
 				while (0 < stack.size() && work[i][k] <= stack.back()[0]) {
 					t = stack.back()[1];
+					r = std::max(r, (k - t) * stack.back()[0]);
 					stack.pop_back();
 				}
 				stack.push_back({{work[i][k], t}});
-				for (auto v : stack) {
-					r = std::max(r, (k - v[1] + 1) * v[0]);
-				}
 			}
 		}
 		i = 1 - i;
-		stack.clear();
+		while (0 < stack.size()) {
+			r = std::max(r, (b.size() - stack.back()[1]) * stack.back()[0]);
+			stack.pop_back();
+		}
 	}
 
 	return r;

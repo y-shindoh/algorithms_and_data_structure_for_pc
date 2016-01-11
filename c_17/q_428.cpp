@@ -19,6 +19,11 @@
 #include <array>
 #include <vector>
 
+/**
+ * 問題の回答
+ * @param[in]	board	H*Wのボード
+ * @return	最大の長方形の面積
+ */
 size_t
 search(const std::vector< std::vector<bool> >& board)
 {
@@ -62,6 +67,9 @@ search(const std::vector< std::vector<bool> >& board)
 #define	H	4
 #define	W	5
 
+/**
+ * サンプル・コマンド
+ */
 int
 main()
 {

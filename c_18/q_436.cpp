@@ -26,19 +26,20 @@
  * @param[in]	numbers	カウント対象の数
  * @return	素数の総数
  */
-size_t
-prime_numbers(const std::vector<size_t> numbers)
+template<typename TYPE>
+TYPE
+prime_numbers(const std::vector<TYPE> numbers)
 {
 	auto it = std::max_element(numbers.begin(), numbers.end());
-	std::vector<size_t> d;
-	size_t r(0);
+	std::vector<TYPE> d;
+	TYPE r(0);
 
 	if (2 <= *it) {
 		d.push_back(2);
 
-		for (size_t i(3); i * i <= *it; i += 2) {
+		for (TYPE i(3); i * i <= *it; i += 2) {
 			bool f(false);
-			for (size_t j : d) {
+			for (TYPE j : d) {
 				if (i % j != 0) continue;
 				f = true;
 				break;
@@ -47,10 +48,10 @@ prime_numbers(const std::vector<size_t> numbers)
 			d.push_back(i);
 		}
 
-		for (size_t i : numbers) {
+		for (TYPE i : numbers) {
 			if (i < 2) continue;
 			bool f(false);
-			for (size_t j : d) {
+			for (TYPE j : d) {
 				if (i < j * j) break;
 				if (i % j != 0) continue;
 				f = true;

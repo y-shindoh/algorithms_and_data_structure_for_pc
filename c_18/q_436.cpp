@@ -36,7 +36,7 @@ prime_numbers(const std::vector<size_t> numbers)
 	if (2 <= *it) {
 		d.push_back(2);
 
-		for (size_t i(3); i * i < *it; i += 2) {
+		for (size_t i(3); i * i <= *it; i += 2) {
 			bool f(false);
 			for (size_t j : d) {
 				if (i % j != 0) continue;

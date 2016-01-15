@@ -41,19 +41,21 @@ min_cost_sort(const TYPE* array,
 			  size_t length)
 {
 	assert(array);
+	assert(0 < length);
 
-	TYPE min = *std::min_element(array, array + length);
-	TYPE max = *std::max_element(array, array + length);
+	TYPE min, max;
 	TYPE r(0);
 
 	std::vector<TYPE> data(length);
 	std::unordered_map<TYPE, size_t> correction;
 	std::vector<bool> flags(length, false);
 
-	// 各値の移動先を算出
+	// 最小値・最大値および各値の移動先を算出
 	for (size_t i(0); i < length; ++i) data[i] = array[i];
 	std::sort(data.begin(), data.end());
 	for (size_t i(0); i < length; ++i) correction[data[i]] = i;
+	min = data[0];
+	max = data[length-1];
 	data.clear();
 
 	// グループ毎に探索

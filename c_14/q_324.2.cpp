@@ -59,6 +59,8 @@ public:
  * @param[in]	values	外部データ
  * @param[in]	lenght	配列 @a values の要素数
  * @param[in]	depth	注目する要素の深さ
+ * @note	本当は選択アルゴリズムで実装すべきだが、
+			ここではクイック・ソートで実装している。
  */
 template<typename TYPE, size_t N>
 void

@@ -54,20 +54,19 @@ public:
 };
 
 /**
- * 注目する要素によるインデックスをソーティング
+ * 注目する要素によるインデックスの選出
  * @param[in,out]	buffer	インデックス
  * @param[in]	values	外部データ
  * @param[in]	lenght	配列 @a values の要素数
  * @param[in]	depth	注目する要素の深さ
- * @note	本当は選択アルゴリズムで実装すべきだが、
-			ここではクイック・ソートで実装している。
  */
 template<typename TYPE, size_t N>
 void
-sort_kdtree(size_t* buffer,
-			const std::array<TYPE, N>* values,
-			size_t length,
-			size_t depth)
+select_kdtree(size_t* buffer,
+			  const std::array<TYPE, N>* values,
+			  size_t length,
+			  size_t target,
+			  size_t depth)
 {
 	assert(buffer);
 	assert(values);
@@ -87,9 +86,10 @@ sort_kdtree(size_t* buffer,
 	}
 
 	std::swap(buffer[0], buffer[j-1]);
+	if (j - 1 == target) return;
 
-	if (1 < j - 1) sort_kdtree<TYPE, N>(buffer, values, j - 1, depth);
-	if (1 + j < length) sort_kdtree<TYPE, N>(buffer + j, values, length - j, depth);
+	if (target < j - 1) select_kdtree<TYPE, N>(buffer, values, j - 1, target, depth);
+	if (j - 1 < target) select_kdtree<TYPE, N>(buffer + j, values, target - j, length - j, depth);
 }
 
 /**
@@ -112,9 +112,8 @@ build_kdtree(size_t* buffer,
 
 	if (length == 0) return 0;
 
-	sort_kdtree<TYPE, N>(buffer, values, length, depth);
-
 	size_t k = length / 2;
+	select_kdtree<TYPE, N>(buffer, values, length, k, depth);
 	Node* node = new Node(buffer[k]);
 
 	node->c_[0] = build_kdtree<TYPE, N>(buffer, values, k, depth + 1);
